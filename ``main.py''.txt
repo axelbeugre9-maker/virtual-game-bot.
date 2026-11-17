@@ -1,0 +1,38 @@
+print("================================")
+print("       VIRTUAL GAME BOT")
+print("       ANALYSE AVIATOR")
+print("================================")
+
+def analyser(resultats):
+    valeurs = [float(x) for x in resultats.split()
+               if float(x) >= 1]
+
+    if not valeurs:
+        print("Aucun résultat valide.")
+        return
+
+    print("\nNombre de manches :", len(valeurs))
+
+    for seuil in [1.5, 2, 5, 10]:
+        nombre = sum(x >= seuil for x in valeurs)
+        frequence = nombre / len(valeurs) * 100
+
+        print(f"Résultats >= {seuil}x : "
+              f"{nombre} ({frequence:.2f}%)")
+
+    print("\nAnalyse terminée.")
+    print("Les statistiques ne prédisent pas le prochain résultat.")
+
+while True:
+    donnees = input(
+        "\nEntre les multiplicateurs séparés par des espaces "
+        "(ou tape STOP pour quitter) : "
+    )
+
+    if donnees.upper() == "STOP":
+        break
+
+    try:
+        analyser(donnees)
+    except ValueError:
+        print("Erreur : utilise des nombres comme 1.20 2.50 4.10")
